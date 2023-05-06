@@ -1,8 +1,8 @@
-import express, { Request, Response } from "express";
 import cors from "cors";
-const app = express()
-app.use(cors({ origin: '*' }));
-app.use(express.json())
+import express, { Request, Response } from "express";
+import mongoose from "mongoose";
+
+const app = express(); app.use(cors({ origin: '*' })); app.use(express.json())
 const port = process.env.PORT || 3000
 
 app.get('/', (req: Request, res: Response) => {
@@ -171,7 +171,12 @@ app.get('/api/enmEvents', (req: Request, res: Response) => {
   );
 })
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+// asynchronous initialization. keeps api from processesing requests until a successful connection to db is established
+mongoose.connect(process.env.MONGO_URI!).then(() => {
+  console.log('yeahyeahyeah');
+  app.listen(port, () => {});
 })
-
+.catch((error) => {
+  console.error('Error connecting to MongoDB:', error.message);
+  process.exit(1); // exit the process with an error code
+});
