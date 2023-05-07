@@ -12,7 +12,7 @@ app.get('/', (req: Request, res: Response) => {
 })
 
 app.get('/api/enmEvents', async (req: Request, res: Response) => {
-  res.json(await EnmEventModel.find());
+  res.json(await EnmEventModel.find().sort('year').sort('month').sort('day').sort('start'));
 })
 
 // asynchronous initialization. keeps api from processesing requests until a successful connection to db is established
