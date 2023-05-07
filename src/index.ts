@@ -173,7 +173,6 @@ app.get('/api/enmEvents', (req: Request, res: Response) => {
 
 // asynchronous initialization. keeps api from processesing requests until a successful connection to db is established
 mongoose.connect(process.env.MONGO_URL!).then(() => {
-  console.log('yeahyeahyeah');
   app.listen(port, () => {});
 })
 .catch((error) => {
