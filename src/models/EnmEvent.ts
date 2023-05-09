@@ -9,14 +9,14 @@ const EnmEventSchema = new Schema({
     city: String,
     state: String,
     country: String,
-    start: String,
-    end: {
-        type: String,
+    startTime: Number,
+    endTime: {
+        type: Number,
         required: false
     },
-    day: String,
-    month: String,
-    year: String,
+    day: Number,
+    month: Number,
+    year: Number,
 });
 
 const EnmEventModel = mongoose.model("EnmEvent", EnmEventSchema);
