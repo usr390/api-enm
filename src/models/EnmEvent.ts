@@ -17,6 +17,7 @@ const EnmEventSchema = new Schema({
     day: Number,
     month: Number,
     year: Number,
+    priceOfEntry: Number,
 });
 
 const EnmEventModel = mongoose.model("EnmEvent", EnmEventSchema);
