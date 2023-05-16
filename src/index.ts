@@ -12,7 +12,19 @@ app.get('/', (req: Request, res: Response) => {
 })
 
 app.get('/api/enmEvents', async (req: Request, res: Response) => {
-  res.json(await EnmEventModel.find().sort('year').sort('month').sort('day').sort('start'));
+
+  // get the current date
+  const date = new Date();
+
+  // get EnmEvents starting from the current date
+  res.json(await EnmEventModel.find({
+    year:  { $gte: date.getFullYear() },
+    month: { $gte: date.getMonth() + 1 },
+    day:   { $gte: date.getDate() },
+  })
+  .sort({ year: 1, month: 1, day: 1, startTime: 1,})
+  .catch(err => console.log(err)))
+
 })
 
 // asynchronous initialization. keeps api from processesing requests until a successful connection to db is established
