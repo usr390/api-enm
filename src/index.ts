@@ -24,7 +24,24 @@ app.get('/api/enmEvents', async (req: Request, res: Response) => {
   })
   .sort({ year: 1, month: 1, day: 1, startTime: 1,})
   .catch(err => console.log(err)))
+})
 
+app.post('/api/enmEvent', async (req: Request, res: Response) => {
+  const enmEvent = new EnmEventModel({
+    id: req.body.id,
+    name: req.body.name,
+    address: req.body.address,
+    city: req.body.city,
+    state: req.body.state,
+    country: req.body.country,
+    startTime: req.body.startTime,
+    endTime: req.body.endTime,
+    day: req.body.day,
+    month: req.body.month,
+    year: req.body.year,
+    priceOfEntry: req.body.priceOfEntry,
+  });
+  res.json(await enmEvent.save());
 })
 
 // asynchronous initialization. keeps api from processesing requests until a successful connection to db is established
