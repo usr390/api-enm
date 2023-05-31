@@ -39,6 +39,7 @@ app.post('/api/enmEvent', async (req: Request, res: Response) => {
     year: req.body.year,
     priceOfEntry: req.body.priceOfEntry,
   });
+  // persist and respond to client with created EnmEvent object
   res.json(await enmEvent.save());
 })
 
