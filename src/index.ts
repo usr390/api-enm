@@ -13,16 +13,14 @@ app.get('/', (req: Request, res: Response) => {
 
 app.get('/api/enmEvents', async (req: Request, res: Response) => {
 
-  // get the current date
+  // get current date
   const date = new Date();
 
-  // get EnmEvents starting from the current date
+  // return all future EnmEvent objects
   res.json(await EnmEventModel.find({
-    year:  { $gte: date.getFullYear() },
-    month: { $gte: date.getMonth() + 1 },
-    day:   { $gte: date.getDate() },
+    $expr: { $gte: [{ $dateFromParts : { 'year' : "$year", 'month' : "$month", 'day' : "$day" } }, date] }
   })
-  .sort({ year: 1, month: 1, day: 1, startTime: 1,})
+  .sort({ year: 1, month: 1, day: 1, startTime: 1})
   .catch(err => console.log(err)))
 })
 
